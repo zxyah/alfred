@@ -31,10 +31,10 @@ def trans(word):
     result = json.load(urllib2.urlopen(request))
     symbol = result.get('dict_result').get('simple_means').get('symbols')[0]
     parts = symbol.get('parts')
-    title = ''
+    title = result.get('trans_result').get('data')[0].get('dst') + ' '
     if (sourceLang == 'en'):
         for it in parts:
-            title += '%s %s ,' % (it.get('part'), unicode.decode(it.get('means')[0]))
+            title += '%s%s ,' % (it.get('part'), unicode.decode(it.get('means')[0]))
         subTitle = '英:[%s], 美:[%s]' % (symbol.get('ph_en'), symbol.get('ph_am'))
     else:
         for it in parts[0].get('means'):
@@ -62,5 +62,5 @@ def generate_xml(items):
     return ET.tostring(xml_items)
 
 
-#print(trans('Translate'))
+#print(trans('china'))
 #print(trans('你好'))
